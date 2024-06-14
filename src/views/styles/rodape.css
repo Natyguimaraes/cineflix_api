@@ -1,0 +1,37 @@
+.rodape {
+    padding: 20px 0; 
+    border-top: 5px solid #007FFF;
+    padding: 50px;
+    color: white;
+    margin-top: 100px;
+    
+}
+
+.secao_icons {
+    width: 100%;
+}
+.secao_icons2 {
+  display: flex;
+  justify-content: center;
+}
+
+.copy {
+    text-align: center;
+}
+
+.icon {
+    margin: 0 15px;
+    
+  }
+
+  .botao_redessociais .img {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease;
+  
+  }
+
+  .botao_redessociais .img:hover {
+    transform: scale(1.1);
+    box-shadow: 4px 5px 30px 5px #007FFF;
+  }

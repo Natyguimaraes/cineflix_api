@@ -1,0 +1,34 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #000000;
+}
+
+.Container {
+  display: flex;
+  justify-content: center; /* Centralize o conteúdo horizontalmente */
+}
+
+header {
+  background-color: #000000;
+  padding: 20px 0; /* Reduzi o padding para 20px */
+  border-bottom: 5px solid #007FFF; /* Melhorei a cor da borda */
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav img {
+  width: 100px; /* Ajuste o tamanho do logo conforme necessário */
+  height: auto;
+  margin-right: 10px; /* Adicionei uma margem à direita */
+}
+
+nav span {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: 'Source Sans Pro', sans-serif;
+}
