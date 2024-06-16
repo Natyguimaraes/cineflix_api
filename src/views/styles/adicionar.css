@@ -1,13 +1,23 @@
-  .Container_form {
-    margin: 30px;
-  }
+.Container_form {
+  display: flex;
+  justify-content: center; /* Alinha o formulário no centro horizontalmente */
+  margin-top: 20px;
+}
+
+.form {
+  width: 100%;
+  max-width: 600px; /* Tamanho máximo do formulário */
+  padding: 20px;
+  border-radius: 8px;
   
-  .input_container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
+}
   
+.input_container {
+  display: flex;
+  align-items: center; /* Alinha verticalmente os itens ao centro */
+  gap: 10px; /* Espaço entre os itens */
+}
+
   .input_icon {
     margin-right: 10px;
     color: #ff6b6b; /* Cor dos ícones */

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/adicionar.css';
 import { FaFilm, FaHome, FaPlus } from 'react-icons/fa';
+import { FiSearch } from 'react-icons/fi';
 import Home from './home';
 
 function FormCadastro() {
@@ -76,20 +77,23 @@ function FormCadastro() {
       {secaoAtual === 'CadastroFilme' && (
         <>
           <div className="Container_form">
-            <div className="form">
-              {errorMessage && <p className="error-message">{errorMessage}</p>}
-              <div className="input_container">
-                <FaFilm className="input_icon" />
-                <input
-                  type="text"
-                  name="search"
-                  placeholder="Pesquisar filme"
-                  value={searchTerm}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-          </div>
+  <div className="form">
+    {errorMessage && <p className="error-message">{errorMessage}</p>}
+    <div className="input_container">
+      <FiSearch className="input_icon" />
+      <input
+        type="text"
+        name="search"
+        placeholder="Pesquisar filme"
+        value={searchTerm}
+        onChange={handleChange}
+      />
+      <button className="button_home_voltar" onClick={() => cliqueSecao('home')}>
+        <FaHome className="home_icon" />
+      </button>
+    </div>
+  </div>
+</div>
 
           <div className="filmes_container">
             {searchResults.map((movie, index) => (
@@ -108,11 +112,7 @@ function FormCadastro() {
             ))}
           </div>
 
-          <div className="home_voltar">
-            <button className="button_home_voltar" onClick={() => cliqueSecao('home')}>
-              <FaHome className="home_icon" />
-            </button>
-          </div>
+         
         </>
       )}
 

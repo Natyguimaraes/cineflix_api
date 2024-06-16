@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import '../styles/home.css';
-import { FaFilm } from 'react-icons/fa'; // ícone de filme
 import FormCadastro from './CadastroFilme';
 import ReadFilme from './readFilme';
 
