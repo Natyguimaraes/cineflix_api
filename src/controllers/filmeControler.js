@@ -2,19 +2,18 @@ import { create, read, update, deleteFil } from '../models/filmeModel.js';
 
 //Realizando insert (create)
 
-export async function createFilme(req, res){
-    const { titulo, data_lancamento, generos, sinopse, url_poster} = req.body;
-    console.log('Dados recebidos do frontend:', {titulo, data_lancamento, generos, sinopse, url_poster});
+export async function createFilme(req, res) {
+    const { titulo, data_lancamento, generos, sinopse, url_poster } = req.body;
+    console.log('Dados recebidos do frontend:', { titulo, data_lancamento, generos, sinopse, url_poster });
 
-    create (titulo, data_lancamento, generos, sinopse, url_poster, (err, result) => {
-        if (err) {
-            res.status(500).json({ error: err.message });
-            return;
-        }
-        res.status(201).json({mensagem: 'Filme adicionado com sucesso'});
-    });
+    try {
+        const result = await create(titulo, data_lancamento, generos, sinopse, url_poster);
+        res.status(201).json({ mensagem: 'Filme adicionado com sucesso', data: result });
+    } catch (err) {
+        console.error('Erro ao adicionar filme:', err);
+        res.status(500).json({ error: 'Erro interno do servidor' });
+    }
 }
-
 //realizando consulta
 
 export async function getAllFilmes(req, res) {

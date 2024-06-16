@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/adicionar.css';
-import { FaFilm, FaHome, FaPlus } from 'react-icons/fa'; // Importe o ícone de casa e o ícone de adição
+import { FaFilm, FaHome, FaPlus } from 'react-icons/fa';
 import Home from './home';
 
 function FormCadastro() {
   const [secaoAtual, setSecaoAtual] = useState('CadastroFilme');
-  const cliqueSecao = (secao) => {
-    setSecaoAtual(secao);
-  };
-
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
@@ -60,10 +57,18 @@ function FormCadastro() {
 
       const json = await response.json();
       console.log(json);
+      setSuccessMessage(movie.id);
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 3000);
     } catch (err) {
       console.error("Erro ao adicionar o filme à lista", err);
       setErrorMessage('Erro ao adicionar o filme à lista. Por favor, tente novamente.');
     }
+  };
+
+  const cliqueSecao = (secao) => {
+    setSecaoAtual(secao);
   };
 
   return (
@@ -72,7 +77,6 @@ function FormCadastro() {
         <>
           <div className="Container_form">
             <div className="form">
-              <h1> Pesquisa de Filme </h1>
               {errorMessage && <p className="error-message">{errorMessage}</p>}
               <div className="input_container">
                 <FaFilm className="input_icon" />
@@ -84,25 +88,26 @@ function FormCadastro() {
                   onChange={handleChange}
                 />
               </div>
-
-              {searchResults.map((movie, index) => (
-  <div key={index} className="search_result">
-    <img src={'https://image.tmdb.org/t/p/w500' + movie.poster_path} alt={movie.title} />
-    <div>
-      <h2>{movie.title}</h2>
-      <h2> {movie.release_date}</h2>
-      <h2> {movie.genres}</h2>
-      <p>{movie.overview}</p>
-      <button onClick={() => handleAddToList(movie)}>
-        <FaPlus /> Adicionar à lista
-      </button>
-    </div>
-  </div>
-))}
-
-              
             </div>
           </div>
+
+          <div className="filmes_container">
+            {searchResults.map((movie, index) => (
+              <div key={index} className="search_result">
+                <img src={'https://image.tmdb.org/t/p/w500' + movie.poster_path} alt={movie.title} />
+                <div>
+                  <h2>{movie.title}</h2>
+                  <p>{movie.release_date}</p>
+                  <p>{movie.genres}</p>
+                  <p>{movie.overview}</p>
+                  <button onClick={() => handleAddToList(movie)}>
+                    <FaPlus /> {successMessage === movie.id ? 'Adicionado com sucesso' : 'Adicionar à lista'}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
           <div className="home_voltar">
             <button className="button_home_voltar" onClick={() => cliqueSecao('home')}>
               <FaHome className="home_icon" />
@@ -110,6 +115,7 @@ function FormCadastro() {
           </div>
         </>
       )}
+
       <div className='secao'>
         {secaoAtual === 'home' && <Home />}
       </div>
@@ -118,3 +124,8 @@ function FormCadastro() {
 }
 
 export default FormCadastro;
+
+
+
+
+

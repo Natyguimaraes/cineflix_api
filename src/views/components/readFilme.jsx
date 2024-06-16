@@ -7,7 +7,7 @@ function ReadFilme() {
   const [secaoAtual, setSecaoAtual] = useState('readFilme');
   const [dadosCadastrados, setDadosCadastrados] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
-  
+
   useEffect(() => {
     async function fetchDadosCadastrados() {
       try {
@@ -24,18 +24,18 @@ function ReadFilme() {
     fetchDadosCadastrados();
   }, []);
 
-  const handleDelete = async (e, movie) => {
+  const handleDelete = async (e, filme) => {
     e.preventDefault();
 
     try {
-      console.log("ID a ser deletado:", movie.id);
-      const response = await fetch(`http://localhost:3000/filmes/${movie.id}`, {
+      console.log("ID a ser deletado:", filme.id);
+      const response = await fetch(`http://localhost:3000/filmes/${filme.id}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
         throw new Error(`Erro ao excluir filme: ${response.status}`);
       }
-      const updatedData = dadosCadastrados.filter(item => item.id !== movie.id);
+      const updatedData = dadosCadastrados.filter(item => item.id !== filme.id);
       setDadosCadastrados(updatedData);
     } catch (error) {
       console.error('Erro ao excluir filme:', error);
@@ -45,12 +45,12 @@ function ReadFilme() {
   const handleUpdate = async (index) => {
     try {
       const filme = dadosCadastrados[index];
-      const response = await fetch(`http://localhost:3000/filmes/${movie.id}`, {
+      const response = await fetch(`http://localhost:3000/filmes/${filme.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(movie),
+        body: JSON.stringify(filme),
       });
       if (!response.ok) {
         throw new Error(`Erro ao atualizar filme: ${response.status}`);
@@ -97,21 +97,27 @@ function ReadFilme() {
                 </tr>
               </thead>
               <tbody>
-                {dadosCadastrados.map((movie, index) => (
+                {dadosCadastrados.map((filme, index) => (
                   <tr key={index}>
-                    <td>{movie.id}</td>
-                    <td>{editIndex === index ? <input type="text" name="titulo" value={movie.titulo} onChange={(e) => handleChange(e, index)} /> : movie.titulo}</td>
-                    <td>{editIndex === index ? <input type="text" name="data_lancamento" value={movie.data_lancamento} onChange={(e) => handleChange(e, index)} /> : movie.data_lancamento}</td>
-                    <td>{editIndex === index ? <input type="text" name="generos" value={movie.generos} onChange={(e) => handleChange(e, index)} /> : movie.generos}</td>
-                    <td>{editIndex === index ? <input type="text" name="sinopse" value={movie.sinopse} onChange={(e) => handleChange(e, index)} /> : movie.sinopse}</td>
-                    <td>{editIndex === index ? <input type="text" name="url_poster" value={movie.url_poster} onChange={(e) => handleChange(e, index)} /> : movie.url_poster}</td>
+                    <td>{filme.id}</td>
+                    <td>{editIndex === index ? <input type="text" name="titulo" value={filme.titulo} onChange={(e) => handleChange(e, index)} /> : filme.titulo}</td>
+                    <td>{editIndex === index ? <input type="text" name="data_lancamento" value={filme.data_lancamento} onChange={(e) => handleChange(e, index)} /> : filme.data_lancamento}</td>
+                    <td>{editIndex === index ? <input type="text" name="generos" value={filme.generos} onChange={(e) => handleChange(e, index)} /> : filme.generos}</td>
+                    <td>{editIndex === index ? <input type="text" name="sinopse" value={filme.sinopse} onChange={(e) => handleChange(e, index)} /> : filme.sinopse}</td>
                     <td>
-                    <FaTrash onClick={(e) => handleDelete(e, filme)} />
-{editIndex === index ?
-  <button className="salvar-button" onClick={() => handleUpdate(index)}>Salvar</button> :
-  <FaEdit onClick={() => handleEdit(index)} />
-}
-
+                      {editIndex === index ? (
+                        <input type="text" name="url_poster" value={filme.url_poster} onChange={(e) => handleChange(e, index)} />
+                      ) : (
+                        <img src={filme.url_poster} alt={filme.titulo} style={{ width: '100px', height: '150px' }} />
+                      )}
+                    </td>
+                    <td>
+                      <FaTrash onClick={(e) => handleDelete(e, filme)} />
+                      {editIndex === index ? (
+                        <button className="salvar-button" onClick={() => handleUpdate(index)}>Salvar</button>
+                      ) : (
+                        <FaEdit onClick={() => handleEdit(index)} />
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -119,7 +125,7 @@ function ReadFilme() {
             </table>
           </div>
           <div className="home_voltar2">
-            <button className="button_home_voltar" onClick={() => setSecaoAtual('home')}> Voltar a página inicial </button>
+            <button className="button_home_voltar" onClick={() => setSecaoAtual('home')}> Voltar à página inicial </button>
           </div>
         </>
       )}

@@ -1,6 +1,5 @@
-.form {
-    width: 400px;
-    margin: 0 auto;
+  .Container_form {
+    margin: 30px;
   }
   
   .input_container {
@@ -68,47 +67,140 @@
     padding: 5px;
   }
 
-  .search_result {
-    color: white;
+  
+  
+  .search_result button {
+    margin-top: 10px;
   }
 
-  /* Adicionar.css */
 
-.search_result {
+
+.search_result button:hover {
+  background-color: #0056b3;
+}
+
+
+.Container_form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.form {
+  width: 100%;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.input_container {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
 }
 
+.input_icon {
+  margin-right: 10px;
+  color: #ff6b6b; /* Cor dos ícones */
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.filmes_container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Espaçamento entre os filmes */
+  justify-content: center; /* Centraliza os filmes horizontalmente */
+}
+
+.search_result {
+  color: white;
+  border: 1px solid #555;
+  padding: 20px;
+  border-radius: 8px;
+  width: calc(25% - 20px); /* Para quatro filmes lado a lado com gap de 20px */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza os itens verticalmente dentro de search_result */
+}
+
 .search_result img {
-  width: 100px;
-  height: 150px;
-  object-fit: cover;
-  margin-right: 20px;
+  width: 100%; /* Largura da imagem */
+  height: auto; /* Altura automática, mantendo a proporção */
+  border-radius: 8px; /* Borda arredondada para a imagem */
+  margin-bottom: 10px; /* Espaçamento inferior */
 }
 
 .search_result div {
-  display: flex;
-  flex-direction: column;
+  flex: 1; /* Para ocupar todo o espaço disponível */
 }
 
 .search_result h2 {
   margin: 0;
+  font-size: 18px;
+  margin-bottom: 5px;
 }
 
 .search_result p {
   margin: 0;
+  font-size: 14px;
+  margin-bottom: 5px;
 }
 
 .search_result button {
-  margin-top: 10px;
   padding: 5px 10px;
   border: none;
   background-color: #007BFF;
   color: white;
   cursor: pointer;
+  border-radius: 5px;
+  align-self: flex-start; /* Alinhar o botão ao topo do container */
 }
 
 .search_result button:hover {
   background-color: #0056b3;
+}
+
+.home_voltar {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button_home_voltar {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1rem;
+  color: #333; /* Cor do ícone */
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button_home_voltar:hover {
+  color: #555; /* Cor do ícone ao passar o mouse */
+}
+
+.home_icon {
+  font-size: 1.5rem;
+}
+
+
+@media (max-width: 768px) {
+  .filmes_container {
+    flex-direction: column; /* Empilhar os filmes um sobre o outro */
+    align-items: center; /* Centralizar os filmes verticalmente */
+  }
+
+  .search_result {
+    width: 100%; /* Occupa toda a largura disponível */
+    margin-bottom: 20px; /* Espaçamento entre os filmes */
+  }
 }

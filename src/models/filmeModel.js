@@ -12,14 +12,20 @@ import connection from '../database/db.js';
     });
 }
 
-export function create(titulo, data_lancamento, generos, sinopse, url_poster, callback){
-    if (typeof callback !== 'function') {
-        console.error('O argumento de callback não é uma função.');
-        return;
-    }
-    connection.query('INSERT INTO filme (titulo, data_lancamento, generos, sinopse, url_poster) VALUES (?, ?, ?, ?, ?)', [titulo, data_lancamento, generos, sinopse, url_poster], callback);
+export function create(titulo, data_lancamento, generos, sinopse, url_poster) {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            'INSERT INTO filme (titulo, data_lancamento, generos, sinopse, url_poster) VALUES (?, ?, ?, ?, ?)', 
+            [titulo, data_lancamento, generos, sinopse, url_poster], 
+            (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(result);
+            }
+        );
+    });
 }
-
 
 export function update(id, novoDados, callback) {
     connection.query('UPDATE filme SET ? WHERE id = ?', [novoDados, id], callback);
