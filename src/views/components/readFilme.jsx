@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/read.css';
 import Home from './home';
-import { FaTrash, FaEdit } from 'react-icons/fa'; 
+import { FaTrash, FaEdit } from 'react-icons/fa';
 
 function ReadFilme() {
   const [secaoAtual, setSecaoAtual] = useState('readFilme');
@@ -26,7 +26,6 @@ function ReadFilme() {
 
   const handleDelete = async (e, filme) => {
     e.preventDefault();
-
     try {
       console.log("ID a ser deletado:", filme.id);
       const response = await fetch(`http://localhost:3000/filmes/${filme.id}`, {
@@ -52,11 +51,18 @@ function ReadFilme() {
         },
         body: JSON.stringify(filme),
       });
+  
+      // Adiciona um log para verificar a resposta
+      const responseData = await response.json();
+      console.log('Resposta do servidor:', responseData);
+  
       if (!response.ok) {
         throw new Error(`Erro ao atualizar filme: ${response.status}`);
       }
-      // Recarrega os dados após a atualização bem-sucedida
+  
+      // Atualiza os dados após a atualização bem-sucedida
       const updatedData = [...dadosCadastrados];
+      updatedData[index] = filme; // Substitui o item atualizado na lista
       setDadosCadastrados(updatedData);
       setEditIndex(null);
     } catch (error) {
@@ -98,17 +104,70 @@ function ReadFilme() {
               </thead>
               <tbody>
                 {dadosCadastrados.map((filme, index) => (
-                  <tr key={index}>
+                  <tr key={filme.id}>
                     <td>{filme.id}</td>
-                    <td>{editIndex === index ? <input type="text" name="titulo" value={filme.titulo} onChange={(e) => handleChange(e, index)} /> : filme.titulo}</td>
-                    <td>{editIndex === index ? <input type="text" name="data_lancamento" value={filme.data_lancamento} onChange={(e) => handleChange(e, index)} /> : filme.data_lancamento}</td>
-                    <td>{editIndex === index ? <input type="text" name="generos" value={filme.generos} onChange={(e) => handleChange(e, index)} /> : filme.generos}</td>
-                    <td>{editIndex === index ? <input type="text" name="sinopse" value={filme.sinopse} onChange={(e) => handleChange(e, index)} /> : filme.sinopse}</td>
                     <td>
                       {editIndex === index ? (
-                        <input type="text" name="url_poster" value={filme.url_poster} onChange={(e) => handleChange(e, index)} />
+                        <input
+                          type="text"
+                          name="titulo"
+                          value={filme.titulo}
+                          onChange={(e) => handleChange(e, index)}
+                        />
                       ) : (
-                        <img src={filme.url_poster} alt={filme.titulo} style={{ width: '100px', height: '150px' }} />
+                        filme.titulo
+                      )}
+                    </td>
+                    <td>
+                      {editIndex === index ? (
+                        <input
+                          type="text"
+                          name="data_lancamento"
+                          value={filme.data_lancamento}
+                          onChange={(e) => handleChange(e, index)}
+                        />
+                      ) : (
+                        filme.data_lancamento
+                      )}
+                    </td>
+                    <td>
+                      {editIndex === index ? (
+                        <input
+                          type="text"
+                          name="generos"
+                          value={filme.generos}
+                          onChange={(e) => handleChange(e, index)}
+                        />
+                      ) : (
+                        filme.generos
+                      )}
+                    </td>
+                    <td>
+                      {editIndex === index ? (
+                        <input
+                          type="text"
+                          name="sinopse"
+                          value={filme.sinopse}
+                          onChange={(e) => handleChange(e, index)}
+                        />
+                      ) : (
+                        filme.sinopse
+                      )}
+                    </td>
+                    <td>
+                      {editIndex === index ? (
+                        <input
+                          type="text"
+                          name="url_poster"
+                          value={filme.url_poster}
+                          onChange={(e) => handleChange(e, index)}
+                        />
+                      ) : (
+                        <img
+                          src={filme.url_poster}
+                          alt={filme.titulo}
+                          style={{ width: '100px', height: '150px' }}
+                        />
                       )}
                     </td>
                     <td>
